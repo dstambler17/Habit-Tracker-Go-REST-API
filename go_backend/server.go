@@ -39,7 +39,7 @@ func isAuthorized(endpoint func(http.ResponseWriter, *http.Request)) http.Handle
 		if r.Header["Token"] != nil {
 			token, err := jwt.Parse(r.Header["Token"][0], func(token *jwt.Token) (interface{}, error) {
 				if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-					return nil, fmt.Errorf("There was an error")
+					return nil, fmt.Errorf("Error has occured")
 				}
 				return mySigningKey, nil
 			})
@@ -53,15 +53,12 @@ func isAuthorized(endpoint func(http.ResponseWriter, *http.Request)) http.Handle
 			}
 
 		} else {
-			fmt.Println("URG WHY")
 			fmt.Fprintf(w, "Not Authorized")
 		}
 	})
 }
 
 func main() {
-
-	fmt.Print("hi")
 	//fmt.Print(reflect.TypeOf(generateUUID()))*/
 	handleRequests()
 }
